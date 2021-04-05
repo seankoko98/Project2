@@ -1,14 +1,14 @@
 CurrentState,KeyTyped,KeyCode,MouseEvent,ClickableName,MapDirection,NextState
 Splash,,,mouseReleased,,,Introduction
-Introduction,,,,StartGame,,Home
+Introduction,,,mouseReleased,,,Home
 Home,,,,,W,Rocky
-Home,,,,,E,Icy
+Home,,,,,E,Ice
 Bunker,,,,,S,Colony
 Colony,,,,,E,Rocky
 Colony,,,,,S,Crystal
 Crystal,,,,,N,Colony
 Crystal,,,,,E,Lava
-Forest,,,,,N,Icy
+Forest,,,,,N,Ice
 Forest,,,,,E,Virus2
 Forest,,,,,S,Rocky
 Ice,,,,,S,Forest
