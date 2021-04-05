@@ -1,0 +1,13 @@
+ID,StateName,ClassName,PNGFilename,CollisionFilename
+0,Splash,PNGRoom,assets/splash.png,
+1,Introduction,InstructionsScreen,assets/intro.png,
+2,Home,PNGRoom,assets/home.png,
+3,Bunker,PNGRoom,assets/bunker.png,
+4,Colony,PNGRoom,assets/colony.png,
+5,Crystal,PNGRoom,assets/crystal.png,
+6,Forest,PNGRoom,assets/forest.png,
+7,Ice,PNGRoom,assets/ice.png,
+8,Lava,PNGRoom,assets/lava.png,
+9,Rocky,PNGRoom,assets/rocky.png,
+10,Virus1,PNGRoom,assets/virus1.png,
+11,Virus2,PNGRoom,assets/virus2.png,

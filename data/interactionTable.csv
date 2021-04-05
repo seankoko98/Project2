@@ -1,0 +1,24 @@
+CurrentState,KeyTyped,KeyCode,MouseEvent,ClickableName,MapDirection,NextState
+Splash,,,mouseReleased,,,Introduction
+Introduction,,,,StartGame,,Home
+Home,,,,,W,Rocky
+Home,,,,,E,Icy
+Bunker,,,,,S,Colony
+Colony,,,,,E,Rocky
+Colony,,,,,S,Crystal
+Crystal,,,,,N,Colony
+Crystal,,,,,E,Lava
+Forest,,,,,N,Icy
+Forest,,,,,E,Virus2
+Forest,,,,,S,Rocky
+Ice,,,,,S,Forest
+Ice,,,,,W,Home
+Lava,,,,,N,Rocky
+Lava,,,,,W,Crystal
+Lava,,,,,S,Virus1
+Rocky,,,,,N,Forest
+Rocky,,,,,E,Home
+Rocky,,,,,S,Lava
+Rocky,,,,,W,Colony
+Virus1,,,,,N,Lava
+Virus 2,,,,,W,Forest
