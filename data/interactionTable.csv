@@ -5,6 +5,7 @@ Home,,,,,W,Rocky
 Home,,,,,E,Ice
 Bunker,,,,,S,Colony
 Colony,,,,,E,Rocky
+Colony,,,,,N,Bunker
 Colony,,,,,S,Crystal
 Crystal,,,,,N,Colony
 Crystal,,,,,E,Lava
