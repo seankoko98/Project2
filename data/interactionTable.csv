@@ -6,8 +6,6 @@ Home,,,,,E,Ice
 Bunker,,,,,S,Colony
 Colony,,,,,E,Rocky
 Colony,,,,,N,Bunker
-Colony,,,,,S,Crystal
-Crystal,,,,,N,Colony
 Crystal,,,,,E,Lava
 Forest,,,,,N,Ice
 Forest,,,,,E,Virus2
