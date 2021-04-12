@@ -9,5 +9,5 @@ ID,StateName,ClassName,PNGFilename,CollisionFilename
 7,Ice,PNGRoom,assets/ice.png,data/ice_cl.csv
 8,Lava,PNGRoom,assets/lava.png,data/lava_cl.csv
 9,Rocky,PNGRoom,assets/rocky.png,data/rocky_cl.csv
-10,Virus1,PNGRoom,assets/virus1.png,
-11,Virus2,PNGRoom,assets/virus2.png,
+10,Virus1,DeepThoughtsRoom,assets/virus1.png,
+11,Virus2,DeepThoughtsRoom,assets/virus2.png,
