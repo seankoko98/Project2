@@ -2,7 +2,7 @@ ID,StateName,ClassName,PNGFilename,CollisionFilename
 0,Splash,PNGRoom,assets/splash.png,
 1,Introduction,PNGRoom,assets/intro.png,
 2,Home,PNGRoom,assets/home.png,data/home_cl.csv
-3,Bunker,PNGRoom,assets/bunker.png,
+3,Bunker,PNGRoom,assets/bunker.png,data/bunker_cl.csv
 4,Colony,PNGRoom,assets/colony.png,data/colony_cl.csv
 5,Crystal,PNGRoom,assets/crystal.png,data/crystal_cl.csv
 6,Forest,PNGRoom,assets/forest.png,data/forest_cl.csv
