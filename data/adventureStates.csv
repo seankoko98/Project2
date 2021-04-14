@@ -4,10 +4,10 @@ ID,StateName,ClassName,PNGFilename,CollisionFilename
 2,Home,PNGRoom,assets/home.png,data/home_cl.csv
 3,Bunker,PNGRoom,assets/bunker.png,data/bunker_cl.csv
 4,Colony,PNGRoom,assets/colony.png,data/colony_cl.csv
-5,Crystal,PNGRoom,assets/crystal.png,data/crystal_cl.csv
+5,Crystal,MaskRoom2,assets/crystal.png,data/crystal_cl.csv
 6,Forest,PNGRoom,assets/forest.png,data/forest_cl.csv
-7,Ice,PNGRoom,assets/ice.png,data/ice_cl.csv
+7,Ice,MaskRoom1,assets/ice.png,data/ice_cl.csv
 8,Lava,PNGRoom,assets/lava.png,data/lava_cl.csv
 9,Rocky,PNGRoom,assets/rocky.png,data/rocky_cl.csv
-10,Virus1,DeepThoughtsRoom,assets/virus1.png,
-11,Virus2,DeepThoughtsRoom,assets/virus2.png,
+10,Virus1,MaskRoom3,assets/virus1.png,
+11,Virus2,MaskRoom4,assets/virus2.png,

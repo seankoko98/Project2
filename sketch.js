@@ -1,6 +1,6 @@
 /***********************************************************************************
-  MoodyMaze
-  by Scott Kildall
+  Dr. Masque
+  by Sean Ko
 
   Uses the p5.2DAdventure.js class 
   
@@ -21,6 +21,10 @@ var playerAnimation;
 // Clickables: the manager class
 var clickablesManager;    // the manager class
 var clickables;           // an array of clickable objects
+
+//Global variables for mask game
+var maskSprites = [];
+var maskCollected = [];
 
 // indexes into the clickable array (constants)
 const playGameIndex = 0;
@@ -55,6 +59,23 @@ function preload() {
 // Setup the adventure manager
 function setup() {
   createCanvas(1280, 720);
+
+  // create mask sprites
+        maskSprites[0] = createSprite(100, 300, 150, 150);
+        maskSprites[1] = createSprite(500, 400, 150, 150);
+        maskSprites[2] = createSprite(600, 100, 150, 150);
+        maskSprites[3] = createSprite(700, 500, 150, 150);
+
+        // add animation for each one...
+  for( let i = 0; i < maskSprites.length; i++ ) {
+        maskSprites[i].addAnimation('regular', 
+        loadAnimation('assets/avatars/mask1.png', 'assets/avatars/mask3.png'));
+        }
+
+   // set collected for masks to false
+   for( let i = 0; i < maskSprites.length; i++ ) {
+        maskCollected[i] = false;
+        }
 
   // setup the clickables = this will allocate the array
   clickables = clickablesManager.setup();
@@ -101,13 +122,45 @@ function draw() {
     // draw number of lives
     fill(255);
     textFont(atariFont);
-    textSize(20)
+    textSize(20);
     textAlign(LEFT);
     text( "Lives: " + numLives, width-350, 50);
+    textAlign(RIGHT);
+    text( "collected masks: " + countCollectedMasks() + "/4", width-850, 50 );
 
     // this is a function of p5.js, not of this sketch
     drawSprite(playerSprite);
   } 
+}
+
+function countCollectedMasks() {
+        // count the collected masks
+
+        let collectedMasks = 0;
+        for( let i = 0; i < maskSprites.length; i++ ) {
+           if( maskCollected[i] === true ) {
+                  collectedMasks++;
+           }
+    }
+
+    return collectedMasks;
+}
+
+
+function maskSprite1Collision() {
+        maskCollected[0] = true;
+}
+
+function maskSprite2Collision() {
+        maskCollected[1] = true;
+}
+
+function maskSprite3Collision() {
+        maskCollected[2] = true;
+}
+
+function maskSprite4Collision() {
+        maskCollected[3] = true;
 }
 
 // pass to adventure manager, this do the draw / undraw events
@@ -189,23 +242,6 @@ clickableButtonPressed = function() {
   
 }
 
-// this goes through and checks to see if we pressed one of the wierd NPC buttons, if so, we
-// see if it is the corrent one or not
-// function checkWeirdNPCButtons(idNum) {
-//   if( idNum >= 2 && idNum <= 7 ) {
-//     if( idNum === 6) {
-//       adventureManager.changeState("AhaOpened");
-//     }
-//     else {
-//       die();
-//     }
-
-//     return true;
-//   }
-
-//   return false;
-// }
-
 // gets called when player dies, screen and teleport back to start
 // OR if you are out of lives, just dead...
 function die() {
@@ -219,20 +255,6 @@ function die() {
   }
 }
 
-// function talkToWeirdy() {
-//   if( talkedToWeirdNPC === false ) {
-//     print( "turning them on");
-
-//     // turn on visibility for buttons
-//     for( let i = answer1Index; i <= answer6Index; i++ ) {
-//       clickables[i].visible = true;
-//     }
-
-//     talkedToWeirdNPC = true;
-//     print("talked to weidy");
-//   }
-// }
-  
 
 //-------------- SUBCLASSES / YOUR DRAW CODE CAN GO HERE ---------------//
 
@@ -267,6 +289,94 @@ class InstructionsScreen extends PNGRoom {
 
     // Draw text in a box
     text(this.instructionsText, width/6, height/6, this.textBoxWidth, this.textBoxHeight );
+  }
+}
+
+
+class MaskRoom1 extends PNGRoom {
+  draw() {
+    super.draw();
+    if (maskCollected[0] === false) {
+     drawSprite(maskSprites[0]);
+    playerSprite.overlap(maskSprites[0], maskSprite1Collision);
+    }
+  }
+}
+
+class MaskRoom2 extends PNGRoom {
+  draw() {
+    super.draw();
+    if (maskCollected[1] === false) {
+     drawSprite(maskSprites[1]);
+    playerSprite.overlap(maskSprites[1], maskSprite2Collision);
+    }
+  }
+}
+
+class MaskRoom3 extends PNGRoom {
+
+preload() {
+     // load the animation just one time
+    this.NPCAnimation = loadAnimation('assets/NPCs/virus1.png', 'assets/NPCs/virus4.png');
+    
+    // this is a type from p5play, so we can do operations on all sprites
+    // at once
+    this.NPCgroup = new Group;
+
+    // change this number for more or less
+    this.numNPCs = 30;
+
+    // is an array of sprites, note we keep this array because
+    // later I will add movement to all of them
+    this.NPCSprites = [];
+
+    // this will place them randomly in the room
+    for( let i = 0; i < this.numNPCs; i++ ) {
+      // random x and random y poisiton for each sprite
+      let randX  = random(100, width-100);
+      let randY = random(100, height-100);
+
+      // create the sprite
+      this.NPCSprites[i] = createSprite( randX, randY, 40, 40);
+    
+      // add the animation to it (important to load the animation just one time)
+      this.NPCSprites[i].addAnimation('regular', this.NPCAnimation );
+
+      // add to the group
+      this.NPCgroup.add(this.NPCSprites[i]);
+    }
+
+    print("DeepThoughtsRoom");
+  }
+
+  draw() {
+    super.draw();
+    if (maskCollected[2] === false) {
+     drawSprite(maskSprites[2]);
+    playerSprite.overlap(maskSprites[2], maskSprite3Collision);
+
+    this.NPCgroup.draw();
+
+    // checks for overlap with ANY sprite in the group, if this happens
+    // our die() function gets called
+    playerSprite.overlap(this.NPCgroup, die);
+
+    for( let i = 0; i < this.NPCSprites.length; i++ ) {
+      this.NPCSprites[i].velocity.x = random(-1,1);
+      this.NPCSprites[i].velocity.y = random(-1,1);
+    }
+
+    }
+  }
+}
+
+class MaskRoom4 extends PNGRoom {
+  draw() {
+    super.draw();
+    if (maskCollected[3] === false) {
+     drawSprite(maskSprites[3]);
+    playerSprite.overlap(maskSprites[3], maskSprite4Collision);
+    }
   }
 }
 
@@ -331,65 +441,5 @@ class DeepThoughtsRoom extends PNGRoom {
   }
 }
 
-// class AhaRoom extends PNGRoom {
-//   // preload() gets called once upon startup
-//   // We load ONE animation and create 20 NPCs
-//   // 
-//   preload() {
-//       // this is our image, we will load when we enter the room
-//       this.talkBubble = null;
-//       this.talkedToNPC = false;  // only draw when we run into it
-//       talkedToWeirdNPC = false;
 
-//       // NPC position
-//       this.drawX = width/4;
-//       this.drawY = height/2 + 100;
-
-//       // load the animation just one time
-//       this.weirdNPCSprite = createSprite( this.drawX, this.drawY, 100, 100);
-//       this.weirdNPCSprite.addAnimation('regular',  loadAnimation('assets/NPCs/wierdy_01.png', 'assets/NPCs/wierdy_04.png'));
-//    }
-
-//    load() {
-//       // pass to superclass
-//       super.load();
-
-//       this.talkBubble = loadImage('assets/talkBubble.png');
-      
-//       // turn off buttons
-//       for( let i = answer1Index; i <= answer6Index; i++ ) {
-//        clickables[i].visible = false;
-//       }
-//     }
-
-//     // clears up memory
-//     unload() {
-//       super.unload();
-
-//       this.talkBubble = null;
-//       talkedToWeirdNPC = false;
-//       print("unloading AHA room");
-//     }
-
-//    // pass draw function to superclass, then draw sprites, then check for overlap
-//   draw() {
-//     // PNG room draw
-//     super.draw();
-
-//     // draws all the sprites in the group
-//     //this.weirdNPCSprite.draw();
-//     drawSprite(this.weirdNPCSprite)
-//     // draws all the sprites in the group - 
-//     //drawSprites(this.weirdNPCgroup);//.draw();
-
-//     // checks for overlap with ANY sprite in the group, if this happens
-//     // talk() function gets called
-//     playerSprite.overlap(this.weirdNPCSprite, talkToWeirdy );
-
-     
-//     if( this.talkBubble !== null && talkedToWeirdNPC === true ) {
-//       image(this.talkBubble, this.drawX + 60, this.drawY - 350);
-//     }
-//   }
-// }
 
