@@ -61,10 +61,10 @@ function setup() {
   createCanvas(1280, 720);
 
   // create mask sprites
-        maskSprites[0] = createSprite(100, 300, 150, 150);
-        maskSprites[1] = createSprite(500, 400, 150, 150);
-        maskSprites[2] = createSprite(600, 100, 150, 150);
-        maskSprites[3] = createSprite(700, 500, 150, 150);
+        maskSprites[0] = createSprite(1200, 350, 150, 150);
+        maskSprites[1] = createSprite(600, 445, 150, 150);
+        maskSprites[2] = createSprite(200, 540, 150, 150);
+        maskSprites[3] = createSprite(1100, 150, 150, 150);
 
         // add animation for each one...
   for( let i = 0; i < maskSprites.length; i++ ) {
@@ -351,9 +351,11 @@ preload() {
 
   draw() {
     super.draw();
+
     if (maskCollected[2] === false) {
      drawSprite(maskSprites[2]);
     playerSprite.overlap(maskSprites[2], maskSprite3Collision);
+    }
 
     this.NPCgroup.draw();
 
@@ -364,18 +366,65 @@ preload() {
     for( let i = 0; i < this.NPCSprites.length; i++ ) {
       this.NPCSprites[i].velocity.x = random(-1,1);
       this.NPCSprites[i].velocity.y = random(-1,1);
-    }
+    
 
     }
   }
 }
 
 class MaskRoom4 extends PNGRoom {
+
+  preload() {
+     // load the animation just one time
+    this.NPCAnimation = loadAnimation('assets/NPCs/virus1.png', 'assets/NPCs/virus4.png');
+    
+    // this is a type from p5play, so we can do operations on all sprites
+    // at once
+    this.NPCgroup = new Group;
+
+    // change this number for more or less
+    this.numNPCs = 30;
+
+    // is an array of sprites, note we keep this array because
+    // later I will add movement to all of them
+    this.NPCSprites = [];
+
+    // this will place them randomly in the room
+    for( let i = 0; i < this.numNPCs; i++ ) {
+      // random x and random y poisiton for each sprite
+      let randX  = random(100, width-100);
+      let randY = random(100, height-100);
+
+      // create the sprite
+      this.NPCSprites[i] = createSprite( randX, randY, 40, 40);
+    
+      // add the animation to it (important to load the animation just one time)
+      this.NPCSprites[i].addAnimation('regular', this.NPCAnimation );
+
+      // add to the group
+      this.NPCgroup.add(this.NPCSprites[i]);
+    }
+
+    print("DeepThoughtsRoom");
+  }
+
   draw() {
     super.draw();
     if (maskCollected[3] === false) {
      drawSprite(maskSprites[3]);
     playerSprite.overlap(maskSprites[3], maskSprite4Collision);
+    }
+
+        this.NPCgroup.draw();
+
+    // checks for overlap with ANY sprite in the group, if this happens
+    // our die() function gets called
+    playerSprite.overlap(this.NPCgroup, die);
+
+    for( let i = 0; i < this.NPCSprites.length; i++ ) {
+      this.NPCSprites[i].velocity.x = random(-1,1);
+      this.NPCSprites[i].velocity.y = random(-1,1);
+
     }
   }
 }
