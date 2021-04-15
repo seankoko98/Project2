@@ -36,6 +36,9 @@ const restartGameIndex = 1;
 var numLives = 5;
 var atariFont = null;
 
+// Global variable for final instructions screen
+var allMasksCollected = false;
+
 // Allocate Adventure Manager with states table and interaction tables
 function preload() {
   clickablesManager = new ClickableManager('data/clickableLayout.csv');
@@ -60,6 +63,17 @@ function setup() {
         maskSprites[i].addAnimation('regular', 
         loadAnimation('assets/avatars/mask1.png', 'assets/avatars/mask3.png'));
         }
+
+  // create happy sprites 
+        happySprite = createSprite(600,445,400,160);
+
+        happySprite.addAnimation('regular', loadAnimation('assets/avatars/happy1.png', 'assets/avatars/happy4.png'));
+  
+  // create sad sprites       
+
+        sadSprite = createSprite(600,445,400,160);
+
+        sadSprite.addAnimation('regular', loadAnimation('assets/avatars/sad.png', 'assets/avatars/sad2.png'));
 
    // set collected for masks to false
    for( let i = 0; i < maskSprites.length; i++ ) {
@@ -132,23 +146,33 @@ function countCollectedMasks() {
            }
     }
 
+    // check if masks have been collected 
+   if(collectedMasks == 4 && allMasksCollected == false) {
+      allMasksCollected = true
+      window.alert("You've collected all masks! Deliver masks to the survivors in the hidden bunker!")
+    }
+
     return collectedMasks;
 }
 
 
 function maskSprite1Collision() {
+        window.alert("When you wear a mask, you protect others as well as yourself. Masks work best when everyone wears one!");
         maskCollected[0] = true;
 }
 
 function maskSprite2Collision() {
+        window.alert("Masks should completely cover the nose and mouth and fit snugly against the sides of face without gaps.");
         maskCollected[1] = true;
 }
 
 function maskSprite3Collision() {
+        window.alert("People age 2 and older should wear masks in public settings and when around people who don’t live in their household.​");
         maskCollected[2] = true;
 }
 
 function maskSprite4Collision() {
+        window.alert("A mask is NOT a substitute for social distancing. Masks should still be worn in addition to staying at least 6 feet apart, especially when indoors around people who don’t live in your household.");
         maskCollected[3] = true;
 }
 
@@ -392,8 +416,6 @@ class MaskRoom4 extends PNGRoom {
       // add to the group
       this.NPCgroup.add(this.NPCSprites[i]);
     }
-
-    print("DeepThoughtsRoom");
   }
 
   draw() {
@@ -413,6 +435,18 @@ class MaskRoom4 extends PNGRoom {
       this.NPCSprites[i].velocity.x = random(-1,1);
       this.NPCSprites[i].velocity.y = random(-1,1);
 
+    }
+  }
+}
+
+class FinalRoom extends PNGRoom {
+    draw() {
+    super.draw();
+    if (allMasksCollected === true) {
+      drawSprite(happySprite);
+    }
+    else {
+      drawSprite(sadSprite);
     }
   }
 }
