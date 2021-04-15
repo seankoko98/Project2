@@ -29,28 +29,17 @@ var maskCollected = [];
 // indexes into the clickable array (constants)
 const playGameIndex = 0;
 const restartGameIndex = 1;
-const answer1Index = 2;
-const answer2Index = 3;
-const answer3Index = 4;
-const answer4Index = 5;
-const answer5Index = 6;
-const answer6Index = 7;
 
 
 // some globals we use throughout...
 // var screamSound = null;
 var numLives = 5;
 var atariFont = null;
-var talkedToWeirdNPC = false;
-
 
 // Allocate Adventure Manager with states table and interaction tables
 function preload() {
   clickablesManager = new ClickableManager('data/clickableLayout.csv');
   adventureManager = new AdventureManager('data/adventureStates.csv', 'data/interactionTable.csv', 'data/clickableLayout.csv');
-
-  // keep this sound in memory as it is low RAM usage
-  // screamSound = loadSound('sounds/Wilhelm_Scream.wav');
 
   // font for drawing
   atariFont = loadFont('fonts/AtariClassic-Chunky.ttf');
@@ -245,7 +234,6 @@ clickableButtonPressed = function() {
 // gets called when player dies, screen and teleport back to start
 // OR if you are out of lives, just dead...
 function die() {
-  // screamSound.play();
   numLives--;
   if( numLives > 0 )  {
     adventureManager.changeState("Home");
@@ -256,7 +244,7 @@ function die() {
 }
 
 
-//-------------- SUBCLASSES / YOUR DRAW CODE CAN GO HERE ---------------//
+//SUBCLASSES//
 
 
 // Instructions screen has a backgrounnd image, loaded from the adventureStates table
@@ -428,67 +416,5 @@ class MaskRoom4 extends PNGRoom {
     }
   }
 }
-
-// In the FeedMeRoom, you have a number of NPCs. We'll eventually make them
-// moving, but for now, they are static. If you run into the NPC, you
-// "die" and get teleported back to Start
-class DeepThoughtsRoom extends PNGRoom {
-  // preload() gets called once upon startup
-  // We load ONE animation and create 20 NPCs
-
-  preload() {
-     // load the animation just one time
-    this.NPCAnimation = loadAnimation('assets/NPCs/virus1.png', 'assets/NPCs/virus4.png');
-    
-    // this is a type from p5play, so we can do operations on all sprites
-    // at once
-    this.NPCgroup = new Group;
-
-    // change this number for more or less
-    this.numNPCs = 30;
-
-    // is an array of sprites, note we keep this array because
-    // later I will add movement to all of them
-    this.NPCSprites = [];
-
-    // this will place them randomly in the room
-    for( let i = 0; i < this.numNPCs; i++ ) {
-      // random x and random y poisiton for each sprite
-      let randX  = random(100, width-100);
-      let randY = random(100, height-100);
-
-      // create the sprite
-      this.NPCSprites[i] = createSprite( randX, randY, 40, 40);
-    
-      // add the animation to it (important to load the animation just one time)
-      this.NPCSprites[i].addAnimation('regular', this.NPCAnimation );
-
-      // add to the group
-      this.NPCgroup.add(this.NPCSprites[i]);
-    }
-
-    print("DeepThoughtsRoom");
-  }
-
-  
-  // pass draw function to superclass, then draw sprites, then check for overlap
-  draw() {
-    // PNG room draw
-    super.draw();
-
-    // draws all the sprites in the group
-    this.NPCgroup.draw();
-
-    // checks for overlap with ANY sprite in the group, if this happens
-    // our die() function gets called
-    playerSprite.overlap(this.NPCgroup, die);
-
-    for( let i = 0; i < this.NPCSprites.length; i++ ) {
-      this.NPCSprites[i].velocity.x = random(-1,1);
-      this.NPCSprites[i].velocity.y = random(-1,1);
-    }
-  }
-}
-
 
 
