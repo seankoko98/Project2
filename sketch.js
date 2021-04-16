@@ -1,14 +1,11 @@
 /***********************************************************************************
-  Dr. Masque
+  Dr. Masque (Project 2: Social Justice Adventure Game)
   by Sean Ko
-
-  Uses the p5.2DAdventure.js class 
   
 ------------------------------------------------------------------------------------
-	To use:
-	Add this line to the index.html
+	Travel through the fluorescent terrain of Planet SKK-98 as Dr. Masque and rescue the 
+  four mask shipments to save the colony from the alien virus! 
 
-  <script src="p5.2DAdventure.js"></script>
 ***********************************************************************************/
 
 // adventure manager global  
@@ -17,6 +14,8 @@ var adventureManager;
 // p5.play
 var playerSprite;
 var playerAnimation;
+var happySprite;
+var sadSprite;
 
 // Clickables: the manager class
 var clickablesManager;    // the manager class
@@ -241,17 +240,6 @@ clickableButtonOnOutside = function () {
 clickableButtonPressed = function() {
   // these clickables are ones that change your state
   // so they route to the adventure manager to do this
-   
-  if( !checkWeirdNPCButtons(this.id) ) {
-    // route to adventure manager unless you are on weird NPC screne
-    adventureManager.clickablePressed(this.name);
-  }
-  
-  // restart game with max lives
-  // if( this.name === "Restart" ) {
-  //   numLives = 5;
-  // }
-
   
 }
 
@@ -269,41 +257,6 @@ function die() {
 
 
 //SUBCLASSES//
-
-
-// Instructions screen has a backgrounnd image, loaded from the adventureStates table
-// It is sublcassed from PNGRoom, which means all the loading, unloading and drawing of that
-// class can be used. We call super() to call the super class's function as needed
-class InstructionsScreen extends PNGRoom {
-  // preload is where we define OUR variables
-  preload() {
-    // These are out variables in the InstructionsScreen class
-    this.textBoxWidth = (width/6)*4;
-    this.textBoxHeight = (height/6)*4; 
-
-    // hard-coded, but this could be loaded from a file if we wanted to be more elegant
-    this.instructionsText = "Find WEIRDY who has a logic problem for you to solve, but first, make it past the CORONAVIRUS room";
-  }
-
-  // call the PNGRoom superclass's draw function to draw the background image
-  // and draw our instructions on top of this
-  draw() {
-    // tint down background image so text is more readable
-    tint(128);
-      
-    // this calls PNGRoom.draw()
-    super.draw();
-      
-    // text draw settings
-    fill(255);
-    textAlign(CENTER);
-    textSize(30);
-
-    // Draw text in a box
-    text(this.instructionsText, width/6, height/6, this.textBoxWidth, this.textBoxHeight );
-  }
-}
-
 
 class MaskRoom1 extends PNGRoom {
   draw() {
