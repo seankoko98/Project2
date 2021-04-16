@@ -65,15 +65,15 @@ function setup() {
         }
 
   // create happy sprites 
-        happySprite = createSprite(600,445,400,160);
+        happySprite = createSprite(600,350,600,360);
 
         happySprite.addAnimation('regular', loadAnimation('assets/avatars/happy1.png', 'assets/avatars/happy4.png'));
   
   // create sad sprites       
 
-        sadSprite = createSprite(600,445,400,160);
+        sadSprite = createSprite(600,350,600,360);
 
-        sadSprite.addAnimation('regular', loadAnimation('assets/avatars/sad.png', 'assets/avatars/sad2.png'));
+        sadSprite.addAnimation('regular', loadAnimation('assets/avatars/sad1.png', 'assets/avatars/sad2.png'));
 
    // set collected for masks to false
    for( let i = 0; i < maskSprites.length; i++ ) {
@@ -147,7 +147,7 @@ function countCollectedMasks() {
     }
 
     // check if masks have been collected 
-   if(collectedMasks == 4 && allMasksCollected == false) {
+   if(collectedMasks === 4 && allMasksCollected === false) {
       allMasksCollected = true
       window.alert("You've collected all masks! Deliver masks to the survivors in the hidden bunker!")
     }
