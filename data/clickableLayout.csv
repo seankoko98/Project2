@@ -1,2 +1,3 @@
 ID,Name,State,PNGFilename,Text,x,y,visible
-0,StartGame,Instructions,,Start Game,100,650,yes
+0,Start,Splash,assets/continue.png,,560,510,yes
+1,Start1,Introduction,assets/continue.png,,600,650,yes

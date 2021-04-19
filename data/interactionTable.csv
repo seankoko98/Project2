@@ -1,6 +1,6 @@
 CurrentState,KeyTyped,KeyCode,MouseEvent,ClickableName,MapDirection,NextState
-Splash,,,mouseReleased,,,Introduction
-Introduction,,,mouseReleased,,,Home
+Splash,,,,Start,,Introduction
+Introduction,,,,Start1,,Home
 Home,,,,,W,Rocky
 Home,,,,,E,Ice
 Bunker,,,,,S,Colony
