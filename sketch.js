@@ -240,6 +240,7 @@ clickableButtonOnOutside = function () {
 clickableButtonPressed = function() {
   // these clickables are ones that change your state
   // so they route to the adventure manager to do this
+  adventureManager.clickablePressed(this.name);
   
 }
 
